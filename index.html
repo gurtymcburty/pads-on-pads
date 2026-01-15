@@ -224,6 +224,74 @@
             opacity: 1;
         }
 
+        /* Audio Player */
+        #audio-player {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--sidebar-bg);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 12px;
+            padding: 16px 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 1000;
+            display: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        #audio-player.active {
+            display: block;
+        }
+
+        #audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        #play-pause-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        #play-pause-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .speed-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--sidebar-border);
+            color: var(--text-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .speed-btn:hover, .speed-btn.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
         @media (max-width: 768px) {
             #sidebar {
                 transform: translateX(-100%);
@@ -234,6 +302,11 @@
             }
             #progress-bar {
                 left: 0;
+            }
+            #audio-player {
+                left: 10px;
+                right: 10px;
+                transform: none;
             }
         }
 
@@ -254,6 +327,7 @@
         </div>
 
         <div id="controls">
+            <button class="control-btn" id="audio-toggle">🎧 Listen</button>
             <button class="control-btn" id="theme-toggle">🌙 Dark</button>
             <button class="control-btn" id="font-decrease">A-</button>
             <button class="control-btn" id="font-increase">A+</button>
@@ -261,6 +335,21 @@
         </div>
 
         <div class="bookmark-indicator" id="bookmark-indicator">Bookmark saved!</div>
+
+        <!-- Audio Player -->
+        <div id="audio-player">
+            <div id="audio-controls">
+                <button id="play-pause-btn">▶️</button>
+                <div class="speed-control">
+                    <span style="font-size: 12px; color: var(--text-color);">Speed:</span>
+                    <button class="speed-btn" data-speed="0.75">0.75x</button>
+                    <button class="speed-btn active" data-speed="1">1x</button>
+                    <button class="speed-btn" data-speed="1.25">1.25x</button>
+                    <button class="speed-btn" data-speed="1.5">1.5x</button>
+                </div>
+                <button class="control-btn" id="audio-close">✕</button>
+            </div>
+        </div>
 
         <main id="main">
             <div id="content"></div>
@@ -3065,9 +3154,20 @@ The lesson: At short stacks with coverage, "weak for your range" means something
 
 `;
 
+        // Speech synthesis variables
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        let isPaused = false;
+        let currentSpeed = 1.0;
+        let contentText = '';
+
         function loadContent() {
             const html = marked.parse(markdownContent);
             document.getElementById('content').innerHTML = html;
+            
+            // Extract text for speech
+            contentText = document.getElementById('content').innerText;
+            
             generateTOC();
             restoreBookmark();
             setupScrollTracking();
@@ -3131,6 +3231,108 @@ The lesson: At short stacks with coverage, "weak for your range" means something
             });
         }
 
+        // Audio controls
+        document.getElementById('audio-toggle').addEventListener('click', function() {
+            const player = document.getElementById('audio-player');
+            player.classList.toggle('active');
+            
+            if (player.classList.contains('active')) {
+                this.textContent = '🎧 Listening...';
+            } else {
+                this.textContent = '🎧 Listen';
+                stopAudio();
+            }
+        });
+
+        document.getElementById('audio-close').addEventListener('click', function() {
+            const player = document.getElementById('audio-player');
+            player.classList.remove('active');
+            document.getElementById('audio-toggle').textContent = '🎧 Listen';
+            stopAudio();
+        });
+
+        document.getElementById('play-pause-btn').addEventListener('click', function() {
+            if (!currentUtterance) {
+                startAudio();
+            } else if (isPaused) {
+                resumeAudio();
+            } else {
+                pauseAudio();
+            }
+        });
+
+        document.querySelectorAll('.speed-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentSpeed = parseFloat(this.getAttribute('data-speed'));
+                
+                if (currentUtterance) {
+                    const wasPlaying = !isPaused;
+                    stopAudio();
+                    if (wasPlaying) {
+                        startAudio();
+                    }
+                }
+            });
+        });
+
+        function startAudio() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+            }
+
+            currentUtterance = new SpeechSynthesisUtterance(contentText);
+            currentUtterance.rate = currentSpeed;
+            currentUtterance.pitch = 1.0;
+            currentUtterance.volume = 1.0;
+
+            // Get a better voice if available
+            const voices = speechSynthesis.getVoices();
+            const preferredVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Premium')) 
+                                || voices.find(v => v.lang.startsWith('en-US'))
+                                || voices[0];
+            if (preferredVoice) {
+                currentUtterance.voice = preferredVoice;
+            }
+
+            currentUtterance.onend = () => {
+                document.getElementById('play-pause-btn').textContent = '▶️';
+                currentUtterance = null;
+                isPaused = false;
+            };
+
+            speechSynthesis.speak(currentUtterance);
+            document.getElementById('play-pause-btn').textContent = '⏸️';
+            isPaused = false;
+        }
+
+        function pauseAudio() {
+            if (speechSynthesis.speaking && !isPaused) {
+                speechSynthesis.pause();
+                document.getElementById('play-pause-btn').textContent = '▶️';
+                isPaused = true;
+            }
+        }
+
+        function resumeAudio() {
+            if (isPaused) {
+                speechSynthesis.resume();
+                document.getElementById('play-pause-btn').textContent = '⏸️';
+                isPaused = false;
+            }
+        }
+
+        function stopAudio() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+            }
+            currentUtterance = null;
+            isPaused = false;
+            document.getElementById('play-pause-btn').textContent = '▶️';
+        }
+
+        // Theme toggle
         document.getElementById('theme-toggle').addEventListener('click', function() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -3139,6 +3341,7 @@ The lesson: At short stacks with coverage, "weak for your range" means something
             localStorage.setItem('theme', newTheme);
         });
 
+        // Font size controls
         let fontSize = 1;
         document.getElementById('font-decrease').addEventListener('click', () => {
             if (fontSize > 0) {
@@ -3162,6 +3365,7 @@ The lesson: At short stacks with coverage, "weak for your range" means something
             localStorage.setItem('fontSize', fontSize);
         }
 
+        // Bookmark
         document.getElementById('bookmark-btn').addEventListener('click', () => {
             const scrollPos = window.pageYOffset;
             localStorage.setItem('bookmark', scrollPos);
