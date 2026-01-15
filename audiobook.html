@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pads on Pads - Audiobook</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --accent-color: #c9a566;
+            --card-bg: #1a1a1a;
+            --border-color: #333;
+            --hover-bg: #252525;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--accent-color);
+        }
+
+        .subtitle {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+
+        /* Player */
+        #player {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border-color);
+        }
+
+        #current-chapter {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        #progress-container {
+            margin-bottom: 16px;
+        }
+
+        #progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        #progress-fill {
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        #time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #999;
+            margin-top: 8px;
+        }
+
+        #controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        button {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 8px;
+            transition: all 0.2s;
+            font-size: 20px;
+        }
+
+        button:hover {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        #play-pause {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        #play-pause:hover {
+            background: #d4a574;
+            transform: scale(1.05);
+        }
+
+        #speed-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        #speed-display {
+            font-size: 14px;
+            color: #999;
+            min-width: 45px;
+        }
+
+        /* Playlist */
+        #playlist {
+            list-style: none;
+        }
+
+        .chapter-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chapter-item:hover {
+            background: var(--hover-bg);
+            border-color: var(--accent-color);
+        }
+
+        .chapter-item.active {
+            border-color: var(--accent-color);
+            background: var(--hover-bg);
+        }
+
+        .chapter-title {
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .chapter-number {
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-right: 12px;
+        }
+
+        .chapter-duration {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .playing-indicator {
+            color: var(--accent-color);
+            font-size: 12px;
+            margin-left: 12px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            #player {
+                padding: 20px;
+            }
+
+            .chapter-item {
+                padding: 12px;
+            }
+
+            .chapter-title {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>🎧 Pads on Pads</h1>
+        <p class="subtitle">Professional Audiobook</p>
+
+        <!-- Audio Player -->
+        <div id="player">
+            <div id="current-chapter">Select a chapter to begin</div>
+
+            <div id="progress-container">
+                <div id="progress-bar">
+                    <div id="progress-fill"></div>
+                </div>
+                <div id="time-display">
+                    <span id="current-time">0:00</span>
+                    <span id="total-time">0:00</span>
+                </div>
+            </div>
+
+            <div id="controls">
+                <button id="prev-chapter" title="Previous Chapter">⏮</button>
+                <button id="rewind" title="Rewind 15s">↶ 15s</button>
+                <button id="play-pause" title="Play/Pause">▶</button>
+                <button id="forward" title="Forward 30s">30s ↷</button>
+                <button id="next-chapter" title="Next Chapter">⏭</button>
+            </div>
+
+            <div id="speed-control">
+                <button id="speed-down">−</button>
+                <span id="speed-display">1.0x</span>
+                <button id="speed-up">+</button>
+            </div>
+        </div>
+
+        <!-- Playlist -->
+        <h2 style="margin-bottom: 16px; font-size: 20px;">Chapters</h2>
+        <ul id="playlist"></ul>
+    </div>
+
+    <audio id="audio" preload="metadata"></audio>
+
+    <script>
+        const chapters = [
+            { title: "Postflop Mastery: Playing In Position", file: "audio/chapter-01.mp3" },
+            { title: "PKO Strategy with Alex Theologis", file: "audio/chapter-02.mp3" },
+            { title: "ICM and Final Table Domination", file: "audio/chapter-03.mp3" },
+            { title: "Preflop Adaptations", file: "audio/chapter-04.mp3" },
+            { title: "Live Play Sessions", file: "audio/chapter-05.mp3" },
+            { title: "Guest Expert Reviews", file: "audio/chapter-06.mp3" },
+            { title: "Heads Up Play with Kevin Rabichow", file: "audio/chapter-07.mp3" },
+            { title: "Off the Tables: Tools & Mindset", file: "audio/chapter-08.mp3" }
+        ];
+
+        const audio = document.getElementById('audio');
+        const playPauseBtn = document.getElementById('play-pause');
+        const prevBtn = document.getElementById('prev-chapter');
+        const nextBtn = document.getElementById('next-chapter');
+        const rewindBtn = document.getElementById('rewind');
+        const forwardBtn = document.getElementById('forward');
+        const progressBar = document.getElementById('progress-bar');
+        const progressFill = document.getElementById('progress-fill');
+        const currentTimeEl = document.getElementById('current-time');
+        const totalTimeEl = document.getElementById('total-time');
+        const currentChapterEl = document.getElementById('current-chapter');
+        const playlistEl = document.getElementById('playlist');
+        const speedUpBtn = document.getElementById('speed-up');
+        const speedDownBtn = document.getElementById('speed-down');
+        const speedDisplay = document.getElementById('speed-display');
+
+        let currentChapter = 0;
+        let playbackSpeed = 1.0;
+
+        // Initialize
+        function init() {
+            // Load saved state
+            const savedChapter = localStorage.getItem('audiobook-chapter');
+            const savedTime = localStorage.getItem('audiobook-time');
+            const savedSpeed = localStorage.getItem('audiobook-speed');
+
+            if (savedChapter !== null) {
+                currentChapter = parseInt(savedChapter);
+            }
+
+            if (savedSpeed !== null) {
+                playbackSpeed = parseFloat(savedSpeed);
+                audio.playbackRate = playbackSpeed;
+                speedDisplay.textContent = playbackSpeed.toFixed(1) + 'x';
+            }
+
+            // Generate playlist
+            chapters.forEach((chapter, index) => {
+                const li = document.createElement('li');
+                li.className = 'chapter-item';
+                if (index === currentChapter) li.classList.add('active');
+
+                li.innerHTML = `
+                    <div>
+                        <span class="chapter-number">${index + 1}</span>
+                        <span class="chapter-title">${chapter.title}</span>
+                        ${index === currentChapter ? '<span class="playing-indicator">●</span>' : ''}
+                    </div>
+                `;
+
+                li.onclick = () => loadChapter(index);
+                playlistEl.appendChild(li);
+            });
+
+            // Load chapter
+            loadChapter(currentChapter, savedTime);
+        }
+
+        function loadChapter(index, startTime = 0) {
+            currentChapter = index;
+            audio.src = chapters[index].file;
+            currentChapterEl.textContent = `Chapter ${index + 1}: ${chapters[index].title}`;
+
+            // Update playlist
+            document.querySelectorAll('.chapter-item').forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+
+            // Load and seek
+            audio.load();
+            audio.addEventListener('loadedmetadata', () => {
+                if (startTime) {
+                    audio.currentTime = parseFloat(startTime);
+                }
+            }, { once: true });
+
+            saveState();
+        }
+
+        function togglePlayPause() {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.innerHTML = '⏸';
+            } else {
+                audio.pause();
+                playPauseBtn.innerHTML = '▶';
+            }
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function saveState() {
+            localStorage.setItem('audiobook-chapter', currentChapter);
+            localStorage.setItem('audiobook-time', audio.currentTime);
+            localStorage.setItem('audiobook-speed', playbackSpeed);
+        }
+
+        // Event listeners
+        playPauseBtn.onclick = togglePlayPause;
+
+        prevBtn.onclick = () => {
+            if (currentChapter > 0) {
+                loadChapter(currentChapter - 1);
+                audio.play();
+                playPauseBtn.innerHTML = '⏸';
+            }
+        };
+
+        nextBtn.onclick = () => {
+            if (currentChapter < chapters.length - 1) {
+                loadChapter(currentChapter + 1);
+                audio.play();
+                playPauseBtn.innerHTML = '⏸';
+            }
+        };
+
+        rewindBtn.onclick = () => {
+            audio.currentTime = Math.max(0, audio.currentTime - 15);
+        };
+
+        forwardBtn.onclick = () => {
+            audio.currentTime = Math.min(audio.duration, audio.currentTime + 30);
+        };
+
+        speedUpBtn.onclick = () => {
+            playbackSpeed = Math.min(2.0, playbackSpeed + 0.25);
+            audio.playbackRate = playbackSpeed;
+            speedDisplay.textContent = playbackSpeed.toFixed(2) + 'x';
+            saveState();
+        };
+
+        speedDownBtn.onclick = () => {
+            playbackSpeed = Math.max(0.5, playbackSpeed - 0.25);
+            audio.playbackRate = playbackSpeed;
+            speedDisplay.textContent = playbackSpeed.toFixed(2) + 'x';
+            saveState();
+        };
+
+        audio.addEventListener('timeupdate', () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressFill.style.width = progress + '%';
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+
+            // Save progress every 5 seconds
+            if (Math.floor(audio.currentTime) % 5 === 0) {
+                saveState();
+            }
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            totalTimeEl.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener('ended', () => {
+            // Auto-play next chapter
+            if (currentChapter < chapters.length - 1) {
+                loadChapter(currentChapter + 1);
+                audio.play();
+            } else {
+                playPauseBtn.innerHTML = '▶';
+            }
+        });
+
+        progressBar.onclick = (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = percent * audio.duration;
+        };
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                togglePlayPause();
+            } else if (e.code === 'ArrowLeft') {
+                audio.currentTime -= 15;
+            } else if (e.code === 'ArrowRight') {
+                audio.currentTime += 30;
+            }
+        });
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>
