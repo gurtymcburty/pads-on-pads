@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare - Director Intel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #ffffff;
+            --surface: #fafafa;
+            --border: rgba(0, 0, 0, 0.08);
+            --border-subtle: rgba(0, 0, 0, 0.05);
+            --text-primary: #0a0a0a;
+            --text-secondary: #525252;
+            --text-muted: #737373;
+            --text-faint: #a3a3a3;
+            --accent: #0a0a0a;
+            --accent-hover: #404040;
+            --success: #059669;
+            --warning: #d97706;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-size: 14px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .headline {
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .subhead {
+            font-size: 18px;
+            color: var(--text-secondary);
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 32px;
+        }
+
+        /* Quotes */
+        .quotes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .quote-card {
+            padding: 16px;
+            border: 0.5px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+        }
+
+        .quote-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .quote-attribution {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* Table */
+        .table-container {
+            border: 0.5px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        thead {
+            background: var(--surface);
+            border-bottom: 0.5px solid var(--border);
+        }
+
+        th {
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: var(--text-muted);
+        }
+
+        th:first-child {
+            width: 40%;
+        }
+
+        tbody tr {
+            border-bottom: 0.5px solid var(--border-subtle);
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        td {
+            padding: 12px 16px;
+            color: var(--text-secondary);
+        }
+
+        td:first-child {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .check {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .dash {
+            color: var(--text-faint);
+        }
+
+        .category-row {
+            background: var(--surface);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .category-row td {
+            padding: 8px 16px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .footnote {
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: var(--surface);
+            border: 0.5px solid var(--border);
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .pricing-card {
+            padding: 24px;
+            border: 0.5px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent);
+            background: var(--bg);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .plan-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .plan-price {
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+        }
+
+        .plan-price-suffix {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-top: 24px;
+        }
+
+        .plan-features li {
+            padding: 8px 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* FAQ */
+        .faq-item {
+            margin-bottom: 32px;
+        }
+
+        .faq-question {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .faq-answer {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 48px 24px;
+            background: var(--surface);
+            border: 0.5px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 150ms ease;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-hover);
+        }
+
+        .cta-subtitle {
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 48px 16px;
+            }
+
+            .headline {
+                font-size: 32px;
+            }
+
+            .subhead {
+                font-size: 16px;
+            }
+
+            .section {
+                margin-bottom: 56px;
+            }
+
+            .quotes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 600px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="headline">Director risk intelligence. Without the nonsense.</h1>
+            <p class="subhead">No hidden pricing. No annual lock-ins. No surprise renewal hikes.</p>
+        </div>
+
+        <!-- Sound Familiar Section -->
+        <div class="section">
+            <h2 class="section-title">Sound familiar?</h2>
+            <div class="quotes-grid">
+                <div class="quote-card">
+                    <p class="quote-text">"They quoted £1,200/year then tried to renew me at £2,000"</p>
+                </div>
+                <div class="quote-card">
+                    <p class="quote-text">"Took 3 months and 7 emails to cancel my subscription"</p>
+                </div>
+                <div class="quote-card">
+                    <p class="quote-text">"Sales calls every week for 6 months after I said no"</p>
+                </div>
+                <div class="quote-card">
+                    <p class="quote-text">"Hidden in the T&Cs: auto-renewal with 90-day notice period"</p>
+                </div>
+                <div class="quote-card">
+                    <p class="quote-text">"The price on the website? That's just the starting point for negotiation"</p>
+                </div>
+                <div class="quote-card">
+                    <p class="quote-text">"Locked into an annual contract for data I used twice"</p>
+                </div>
+            </div>
+            <p class="quote-attribution">All attributed to Creditsafe/Experian customers</p>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="section">
+            <h2 class="section-title">Comparison</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Director Intel</th>
+                            <th>Creditsafe</th>
+                            <th>Red Flag Alert</th>
+                            <th>Experian</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Pricing & Terms -->
+                        <tr class="category-row">
+                            <td colspan="5">Pricing & Terms</td>
+                        </tr>
+                        <tr>
+                            <td>Pricing</td>
+                            <td><span class="check">✓</span> From £99/mo</td>
+                            <td>Call for quote</td>
+                            <td>From £200/mo</td>
+                            <td>Call for quote</td>
+                        </tr>
+                        <tr>
+                            <td>Contract</td>
+                            <td><span class="check">✓</span> No contract</td>
+                            <td>Annual</td>
+                            <td>Annual</td>
+                            <td>Annual</td>
+                        </tr>
+                        <tr>
+                            <td>Cancellation</td>
+                            <td><span class="check">✓</span> Cancel anytime</td>
+                            <td>90-day notice</td>
+                            <td>End of term</td>
+                            <td>End of term</td>
+                        </tr>
+                        <tr>
+                            <td>Price guarantee</td>
+                            <td><span class="check">✓</span> Price locked forever</td>
+                            <td>Renewal hikes common</td>
+                            <td><span class="dash">—</span></td>
+                            <td>Renewal hikes common</td>
+                        </tr>
+                        <tr>
+                            <td>Free tier</td>
+                            <td><span class="check">✓</span> Free forever</td>
+                            <td>Limited trial</td>
+                            <td>Trial available</td>
+                            <td>Trial available</td>
+                        </tr>
+                        <tr>
+                            <td>Sign-up</td>
+                            <td><span class="check">✓</span> Self-serve, instant</td>
+                            <td>Sales call required</td>
+                            <td>Sales call required</td>
+                            <td>Sales call required</td>
+                        </tr>
+
+                        <!-- Regulatory & Compliance -->
+                        <tr class="category-row">
+                            <td colspan="5">Regulatory & Compliance Checks</td>
+                        </tr>
+                        <tr>
+                            <td>Director disqualification checks</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>UK Sanctions List</td>
+                            <td><span class="check">✓</span></td>
+                            <td>Add-on</td>
+                            <td><span class="check">✓</span></td>
+                            <td>Add-on</td>
+                        </tr>
+                        <tr>
+                            <td>FCA Register & disciplinary history</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="dash">—</span></td>
+                        </tr>
+                        <tr>
+                            <td>Insolvency Register (bankruptcy, IVA, DRO)</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+
+                        <!-- Director Intelligence -->
+                        <tr class="category-row">
+                            <td colspan="5">Director Intelligence</td>
+                        </tr>
+                        <tr>
+                            <td>Director risk score (0-100)</td>
+                            <td><span class="check">✓</span></td>
+                            <td>Company only</td>
+                            <td>Company only</td>
+                            <td>Company only</td>
+                        </tr>
+                        <tr>
+                            <td>Full director history (inc. resignations)</td>
+                            <td><span class="check">✓</span></td>
+                            <td>Active only</td>
+                            <td><span class="check">✓</span></td>
+                            <td>Active only</td>
+                        </tr>
+                        <tr>
+                            <td>Phoenix pattern detection</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="dash">—</span></td>
+                            <td>Limited</td>
+                            <td><span class="dash">—</span></td>
+                        </tr>
+                        <tr>
+                            <td>Liquidations with debt amounts</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="dash">—</span></td>
+                        </tr>
+                        <tr>
+                            <td>Address clustering detection</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="dash">—</span></td>
+                        </tr>
+                        <tr>
+                            <td>Liquidation vs dissolution distinction</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="dash">—</span></td>
+                        </tr>
+
+                        <!-- Monitoring & Alerts -->
+                        <tr class="category-row">
+                            <td colspan="5">Monitoring & Alerts</td>
+                        </tr>
+                        <tr>
+                            <td>Watchlist monitoring</td>
+                            <td><span class="check">✓</span> Included</td>
+                            <td>Extra cost</td>
+                            <td><span class="check">✓</span> Included</td>
+                            <td>Extra cost</td>
+                        </tr>
+                        <tr>
+                            <td>Email alerts</td>
+                            <td><span class="check">✓</span> Daily</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>PDF exports</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>CSV bulk exports</td>
+                            <td><span class="check">✓</span> Corporate</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+
+                        <!-- Data -->
+                        <tr class="category-row">
+                            <td colspan="5">Data</td>
+                        </tr>
+                        <tr>
+                            <td>Data freshness</td>
+                            <td><span class="check">✓</span> Real-time</td>
+                            <td>Daily batch</td>
+                            <td>Real-time</td>
+                            <td>Daily batch</td>
+                        </tr>
+                        <tr>
+                            <td>Companies House data</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Gazette notices</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+
+                        <!-- Company Credit Data -->
+                        <tr class="category-row">
+                            <td colspan="5">Company Credit Data</td>
+                        </tr>
+                        <tr>
+                            <td>Company credit scores</td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Payment behaviour data</td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="footnote">
+                We focus on director risk. Need company credit scores too? Use us alongside your existing provider.
+            </div>
+        </div>
+
+        <!-- Pricing -->
+        <div class="section">
+            <h2 class="section-title">Pricing</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="plan-name">Free</div>
+                    <div class="plan-price">£0 <span class="plan-price-suffix">forever</span></div>
+                    <ul class="plan-features">
+                        <li>3 director searches/month</li>
+                        <li>Full risk reports</li>
+                        <li>All regulatory checks</li>
+                        <li>5 watchlist slots</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="plan-name">Pro</div>
+                    <div class="plan-price">£99<span class="plan-price-suffix">/mo</span></div>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">No contract, cancel anytime</p>
+                    <ul class="plan-features">
+                        <li>Unlimited director searches</li>
+                        <li>Full risk analysis</li>
+                        <li>Phoenix pattern detection</li>
+                        <li>50 watchlist slots</li>
+                        <li>Daily email alerts</li>
+                        <li>PDF exports</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="plan-name">Corporate</div>
+                    <div class="plan-price">£299<span class="plan-price-suffix">/mo</span></div>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">No contract, cancel anytime</p>
+                    <ul class="plan-features">
+                        <li>Everything in Pro</li>
+                        <li>Unlimited watchlist</li>
+                        <li>API access</li>
+                        <li>CSV bulk exports</li>
+                        <li>Priority support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="section">
+            <h2 class="section-title">FAQ</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">Why don't you offer company credit scores?</div>
+                <div class="faq-answer">Company credit scores are commoditised. What the others miss is director risk. A company can look healthy on paper while its director has left a trail of liquidated businesses and unpaid debts. We score the person, not just the entity.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can I use Director Intel alongside Creditsafe?</div>
+                <div class="faq-answer">Yes. Many customers use us as a second layer. Your existing provider gives you the company view; we give you the director view.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What if I want to cancel?</div>
+                <div class="faq-answer">Log in, click cancel, done. No phone calls, no retention teams.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Will my price increase at renewal?</div>
+                <div class="faq-answer">No. If you sign up at £99/month, you stay at £99/month.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How fresh is your data?</div>
+                <div class="faq-answer">Real-time. Every search pulls directly from Companies House, The Gazette, the FCA Register, the Insolvency Register, and the UK Sanctions List.</div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <a href="#" class="cta-button">Start free. No credit card required.</a>
+            <p class="cta-subtitle">3 free searches to try it out</p>
+        </div>
+    </div>
+</body>
+</html>
