@@ -12,33 +12,29 @@
         }
 
         :root {
-            --bg: #ffffff;
-            --surface: #fafafa;
-            --border: rgba(0, 0, 0, 0.08);
-            --border-subtle: rgba(0, 0, 0, 0.05);
-            --text-primary: #0a0a0a;
-            --text-secondary: #525252;
-            --text-muted: #737373;
-            --text-faint: #a3a3a3;
-            --accent: #0a0a0a;
-            --accent-hover: #404040;
-            --success: #059669;
-            --warning: #d97706;
+            --bg-color: #f8f6f1;
+            --text-color: #2d2d2d;
+            --heading-color: #1a1a1a;
+            --accent-color: #c9a566;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --highlight-bg: #fff9e6;
+            --link-color: #8b6e3f;
+            --muted-text: #737373;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro', system-ui, sans-serif;
-            background: var(--bg);
-            color: var(--text-primary);
-            line-height: 1.5;
-            font-size: 14px;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Georgia', 'Cambria', serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            font-size: 18px;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 80px 24px;
+            padding: 80px 40px;
         }
 
         /* Header */
@@ -48,94 +44,100 @@
         }
 
         .headline {
-            font-size: 48px;
-            font-weight: 600;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 52px;
+            font-weight: 700;
+            color: var(--heading-color);
             letter-spacing: -0.02em;
             line-height: 1.1;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .subhead {
-            font-size: 18px;
-            color: var(--text-secondary);
-            font-weight: 400;
-            line-height: 1.5;
+            font-size: 20px;
+            color: var(--text-color);
+            line-height: 1.6;
         }
 
         /* Section */
         .section {
-            margin-bottom: 80px;
+            margin-bottom: 96px;
         }
 
         .section-title {
-            font-size: 24px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 32px;
             font-weight: 600;
-            letter-spacing: -0.01em;
-            margin-bottom: 32px;
+            color: var(--heading-color);
+            margin-bottom: 40px;
         }
 
         /* Quotes */
         .quotes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 16px;
-            margin-bottom: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
         }
 
         .quote-card {
-            padding: 16px;
-            border: 0.5px solid var(--border);
+            padding: 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            background: var(--surface);
         }
 
         .quote-text {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.5;
+            font-size: 16px;
+            line-height: 1.6;
             font-style: italic;
+            color: var(--text-color);
         }
 
         .quote-attribution {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 8px;
+            font-size: 15px;
+            color: var(--muted-text);
+            font-style: italic;
+            margin-top: 20px;
         }
 
         /* Table */
-        .table-container {
-            border: 0.5px solid var(--border);
-            border-radius: 8px;
+        .table-wrapper {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
             overflow: hidden;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 13px;
         }
 
         thead {
-            background: var(--surface);
-            border-bottom: 0.5px solid var(--border);
+            background: var(--bg-color);
         }
 
         th {
-            padding: 12px 16px;
+            padding: 16px 20px;
             text-align: left;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-weight: 600;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            color: var(--text-muted);
+            font-size: 14px;
+            color: var(--heading-color);
+            border-bottom: 2px solid var(--border-color);
         }
 
         th:first-child {
-            width: 40%;
+            width: 35%;
         }
 
         tbody tr {
-            border-bottom: 0.5px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-color);
         }
 
         tbody tr:last-child {
@@ -143,174 +145,207 @@
         }
 
         td {
-            padding: 12px 16px;
-            color: var(--text-secondary);
+            padding: 16px 20px;
+            font-size: 15px;
+            color: var(--text-color);
         }
 
         td:first-child {
             font-weight: 500;
-            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         .check {
-            color: var(--success);
+            color: var(--accent-color);
             font-weight: 600;
         }
 
         .dash {
-            color: var(--text-faint);
+            color: var(--muted-text);
         }
 
         .category-row {
-            background: var(--surface);
-            font-weight: 600;
-            color: var(--text-primary);
+            background: var(--highlight-bg);
         }
 
         .category-row td {
-            padding: 8px 16px;
-            font-size: 12px;
+            padding: 12px 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 0.03em;
+            letter-spacing: 0.05em;
+            color: var(--accent-color);
         }
 
         .footnote {
-            margin-top: 16px;
-            padding: 12px 16px;
-            background: var(--surface);
-            border: 0.5px solid var(--border);
-            border-radius: 8px;
-            font-size: 13px;
-            color: var(--text-secondary);
-            line-height: 1.5;
+            margin-top: 24px;
+            padding: 20px 24px;
+            background: var(--highlight-bg);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            font-size: 16px;
+            line-height: 1.6;
         }
 
         /* Pricing */
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
         }
 
         .pricing-card {
-            padding: 24px;
-            border: 0.5px solid var(--border);
-            border-radius: 8px;
-            background: var(--surface);
+            padding: 32px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 20px rgba(201, 165, 102, 0.15);
         }
 
         .pricing-card.featured {
-            border-color: var(--accent);
-            background: var(--bg);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 4px 20px rgba(201, 165, 102, 0.15);
         }
 
         .plan-name {
-            font-size: 18px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 8px;
+            color: var(--heading-color);
+            margin-bottom: 12px;
         }
 
         .plan-price {
-            font-size: 32px;
-            font-weight: 600;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--accent-color);
             letter-spacing: -0.02em;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
         }
 
         .plan-price-suffix {
-            font-size: 14px;
-            color: var(--text-muted);
+            font-size: 18px;
+            color: var(--muted-text);
             font-weight: 400;
+        }
+
+        .plan-terms {
+            font-size: 14px;
+            color: var(--muted-text);
+            font-style: italic;
+            margin-bottom: 24px;
         }
 
         .plan-features {
             list-style: none;
-            margin-top: 24px;
         }
 
         .plan-features li {
-            padding: 8px 0;
-            font-size: 13px;
-            color: var(--text-secondary);
-            line-height: 1.4;
+            padding: 10px 0;
+            font-size: 16px;
+            line-height: 1.5;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .plan-features li:last-child {
+            border-bottom: none;
         }
 
         /* FAQ */
         .faq-item {
-            margin-bottom: 32px;
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
         }
 
         .faq-question {
-            font-size: 16px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 8px;
+            color: var(--heading-color);
+            margin-bottom: 12px;
         }
 
         .faq-answer {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.6;
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--text-color);
         }
 
         /* CTA */
         .cta-section {
             text-align: center;
-            padding: 48px 24px;
-            background: var(--surface);
-            border: 0.5px solid var(--border);
-            border-radius: 8px;
+            padding: 60px 40px;
+            background: var(--highlight-bg);
+            border: 2px solid var(--accent-color);
+            border-radius: 16px;
         }
 
         .cta-button {
             display: inline-block;
-            padding: 12px 24px;
-            background: var(--accent);
+            padding: 16px 40px;
+            background: var(--accent-color);
             color: white;
             text-decoration: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            transition: background 150ms ease;
+            border-radius: 8px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(201, 165, 102, 0.25);
         }
 
         .cta-button:hover {
-            background: var(--accent-hover);
+            background: #8b6e3f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(201, 165, 102, 0.35);
         }
 
         .cta-subtitle {
-            margin-top: 12px;
-            font-size: 13px;
-            color: var(--text-muted);
+            margin-top: 16px;
+            font-size: 15px;
+            color: var(--muted-text);
+            font-style: italic;
         }
 
         @media (max-width: 768px) {
             .container {
-                padding: 48px 16px;
+                padding: 48px 20px;
             }
 
             .headline {
-                font-size: 32px;
+                font-size: 36px;
             }
 
             .subhead {
-                font-size: 16px;
+                font-size: 18px;
             }
 
             .section {
-                margin-bottom: 56px;
+                margin-bottom: 64px;
             }
 
             .quotes-grid {
                 grid-template-columns: 1fr;
             }
 
-            .table-container {
-                overflow-x: auto;
+            .table-scroll {
+                overflow-x: scroll;
             }
 
             table {
-                min-width: 600px;
+                min-width: 700px;
             }
 
             .pricing-grid {
@@ -356,224 +391,226 @@
         <!-- Comparison Table -->
         <div class="section">
             <h2 class="section-title">Comparison</h2>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Director Intel</th>
-                            <th>Creditsafe</th>
-                            <th>Red Flag Alert</th>
-                            <th>Experian</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Pricing & Terms -->
-                        <tr class="category-row">
-                            <td colspan="5">Pricing & Terms</td>
-                        </tr>
-                        <tr>
-                            <td>Pricing</td>
-                            <td><span class="check">✓</span> From £99/mo</td>
-                            <td>Call for quote</td>
-                            <td>From £200/mo</td>
-                            <td>Call for quote</td>
-                        </tr>
-                        <tr>
-                            <td>Contract</td>
-                            <td><span class="check">✓</span> No contract</td>
-                            <td>Annual</td>
-                            <td>Annual</td>
-                            <td>Annual</td>
-                        </tr>
-                        <tr>
-                            <td>Cancellation</td>
-                            <td><span class="check">✓</span> Cancel anytime</td>
-                            <td>90-day notice</td>
-                            <td>End of term</td>
-                            <td>End of term</td>
-                        </tr>
-                        <tr>
-                            <td>Price guarantee</td>
-                            <td><span class="check">✓</span> Price locked forever</td>
-                            <td>Renewal hikes common</td>
-                            <td><span class="dash">—</span></td>
-                            <td>Renewal hikes common</td>
-                        </tr>
-                        <tr>
-                            <td>Free tier</td>
-                            <td><span class="check">✓</span> Free forever</td>
-                            <td>Limited trial</td>
-                            <td>Trial available</td>
-                            <td>Trial available</td>
-                        </tr>
-                        <tr>
-                            <td>Sign-up</td>
-                            <td><span class="check">✓</span> Self-serve, instant</td>
-                            <td>Sales call required</td>
-                            <td>Sales call required</td>
-                            <td>Sales call required</td>
-                        </tr>
+            <div class="table-wrapper">
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Director Intel</th>
+                                <th>Creditsafe</th>
+                                <th>Red Flag Alert</th>
+                                <th>Experian</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Pricing & Terms -->
+                            <tr class="category-row">
+                                <td colspan="5">Pricing & Terms</td>
+                            </tr>
+                            <tr>
+                                <td>Pricing</td>
+                                <td><span class="check">✓</span> From £99/mo</td>
+                                <td>Call for quote</td>
+                                <td>From £200/mo</td>
+                                <td>Call for quote</td>
+                            </tr>
+                            <tr>
+                                <td>Contract</td>
+                                <td><span class="check">✓</span> No contract</td>
+                                <td>Annual</td>
+                                <td>Annual</td>
+                                <td>Annual</td>
+                            </tr>
+                            <tr>
+                                <td>Cancellation</td>
+                                <td><span class="check">✓</span> Cancel anytime</td>
+                                <td>90-day notice</td>
+                                <td>End of term</td>
+                                <td>End of term</td>
+                            </tr>
+                            <tr>
+                                <td>Price guarantee</td>
+                                <td><span class="check">✓</span> Price locked forever</td>
+                                <td>Renewal hikes common</td>
+                                <td><span class="dash">—</span></td>
+                                <td>Renewal hikes common</td>
+                            </tr>
+                            <tr>
+                                <td>Free tier</td>
+                                <td><span class="check">✓</span> Free forever</td>
+                                <td>Limited trial</td>
+                                <td>Trial available</td>
+                                <td>Trial available</td>
+                            </tr>
+                            <tr>
+                                <td>Sign-up</td>
+                                <td><span class="check">✓</span> Self-serve, instant</td>
+                                <td>Sales call required</td>
+                                <td>Sales call required</td>
+                                <td>Sales call required</td>
+                            </tr>
 
-                        <!-- Regulatory & Compliance -->
-                        <tr class="category-row">
-                            <td colspan="5">Regulatory & Compliance Checks</td>
-                        </tr>
-                        <tr>
-                            <td>Director disqualification checks</td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                        </tr>
-                        <tr>
-                            <td>UK Sanctions List</td>
-                            <td><span class="check">✓</span></td>
-                            <td>Add-on</td>
-                            <td><span class="check">✓</span></td>
-                            <td>Add-on</td>
-                        </tr>
-                        <tr>
-                            <td>FCA Register & disciplinary history</td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="dash">—</span></td>
-                            <td><span class="dash">—</span></td>
-                            <td><span class="dash">—</span></td>
-                        </tr>
-                        <tr>
-                            <td>Insolvency Register (bankruptcy, IVA, DRO)</td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                        </tr>
+                            <!-- Regulatory & Compliance -->
+                            <tr class="category-row">
+                                <td colspan="5">Regulatory & Compliance Checks</td>
+                            </tr>
+                            <tr>
+                                <td>Director disqualification checks</td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>UK Sanctions List</td>
+                                <td><span class="check">✓</span></td>
+                                <td>Add-on</td>
+                                <td><span class="check">✓</span></td>
+                                <td>Add-on</td>
+                            </tr>
+                            <tr>
+                                <td>FCA Register & disciplinary history</td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="dash">—</span></td>
+                                <td><span class="dash">—</span></td>
+                                <td><span class="dash">—</span></td>
+                            </tr>
+                            <tr>
+                                <td>Insolvency Register (bankruptcy, IVA, DRO)</td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
 
-                        <!-- Director Intelligence -->
-                        <tr class="category-row">
-                            <td colspan="5">Director Intelligence</td>
-                        </tr>
-                        <tr>
-                            <td>Director risk score (0-100)</td>
-                            <td><span class="check">✓</span></td>
-                            <td>Company only</td>
-                            <td>Company only</td>
-                            <td>Company only</td>
-                        </tr>
-                        <tr>
-                            <td>Full director history (inc. resignations)</td>
-                            <td><span class="check">✓</span></td>
-                            <td>Active only</td>
-                            <td><span class="check">✓</span></td>
-                            <td>Active only</td>
-                        </tr>
-                        <tr>
-                            <td>Phoenix pattern detection</td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="dash">—</span></td>
-                            <td>Limited</td>
-                            <td><span class="dash">—</span></td>
-                        </tr>
-                        <tr>
-                            <td>Liquidations with debt amounts</td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="dash">—</span></td>
-                            <td><span class="dash">—</span></td>
-                            <td><span class="dash">—</span></td>
-                        </tr>
-                        <tr>
-                            <td>Address clustering detection</td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="dash">—</span></td>
-                            <td><span class="dash">—</span></td>
-                            <td><span class="dash">—</span></td>
-                        </tr>
-                        <tr>
-                            <td>Liquidation vs dissolution distinction</td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="dash">—</span></td>
-                            <td><span class="dash">—</span></td>
-                            <td><span class="dash">—</span></td>
-                        </tr>
+                            <!-- Director Intelligence -->
+                            <tr class="category-row">
+                                <td colspan="5">Director Intelligence</td>
+                            </tr>
+                            <tr>
+                                <td>Director risk score (0-100)</td>
+                                <td><span class="check">✓</span></td>
+                                <td>Company only</td>
+                                <td>Company only</td>
+                                <td>Company only</td>
+                            </tr>
+                            <tr>
+                                <td>Full director history (inc. resignations)</td>
+                                <td><span class="check">✓</span></td>
+                                <td>Active only</td>
+                                <td><span class="check">✓</span></td>
+                                <td>Active only</td>
+                            </tr>
+                            <tr>
+                                <td>Phoenix pattern detection</td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="dash">—</span></td>
+                                <td>Limited</td>
+                                <td><span class="dash">—</span></td>
+                            </tr>
+                            <tr>
+                                <td>Liquidations with debt amounts</td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="dash">—</span></td>
+                                <td><span class="dash">—</span></td>
+                                <td><span class="dash">—</span></td>
+                            </tr>
+                            <tr>
+                                <td>Address clustering detection</td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="dash">—</span></td>
+                                <td><span class="dash">—</span></td>
+                                <td><span class="dash">—</span></td>
+                            </tr>
+                            <tr>
+                                <td>Liquidation vs dissolution distinction</td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="dash">—</span></td>
+                                <td><span class="dash">—</span></td>
+                                <td><span class="dash">—</span></td>
+                            </tr>
 
-                        <!-- Monitoring & Alerts -->
-                        <tr class="category-row">
-                            <td colspan="5">Monitoring & Alerts</td>
-                        </tr>
-                        <tr>
-                            <td>Watchlist monitoring</td>
-                            <td><span class="check">✓</span> Included</td>
-                            <td>Extra cost</td>
-                            <td><span class="check">✓</span> Included</td>
-                            <td>Extra cost</td>
-                        </tr>
-                        <tr>
-                            <td>Email alerts</td>
-                            <td><span class="check">✓</span> Daily</td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                        </tr>
-                        <tr>
-                            <td>PDF exports</td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                        </tr>
-                        <tr>
-                            <td>CSV bulk exports</td>
-                            <td><span class="check">✓</span> Corporate</td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                        </tr>
+                            <!-- Monitoring & Alerts -->
+                            <tr class="category-row">
+                                <td colspan="5">Monitoring & Alerts</td>
+                            </tr>
+                            <tr>
+                                <td>Watchlist monitoring</td>
+                                <td><span class="check">✓</span> Included</td>
+                                <td>Extra cost</td>
+                                <td><span class="check">✓</span> Included</td>
+                                <td>Extra cost</td>
+                            </tr>
+                            <tr>
+                                <td>Email alerts</td>
+                                <td><span class="check">✓</span> Daily</td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>PDF exports</td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>CSV bulk exports</td>
+                                <td><span class="check">✓</span> Corporate</td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
 
-                        <!-- Data -->
-                        <tr class="category-row">
-                            <td colspan="5">Data</td>
-                        </tr>
-                        <tr>
-                            <td>Data freshness</td>
-                            <td><span class="check">✓</span> Real-time</td>
-                            <td>Daily batch</td>
-                            <td>Real-time</td>
-                            <td>Daily batch</td>
-                        </tr>
-                        <tr>
-                            <td>Companies House data</td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                        </tr>
-                        <tr>
-                            <td>Gazette notices</td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                        </tr>
+                            <!-- Data -->
+                            <tr class="category-row">
+                                <td colspan="5">Data</td>
+                            </tr>
+                            <tr>
+                                <td>Data freshness</td>
+                                <td><span class="check">✓</span> Real-time</td>
+                                <td>Daily batch</td>
+                                <td>Real-time</td>
+                                <td>Daily batch</td>
+                            </tr>
+                            <tr>
+                                <td>Companies House data</td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>Gazette notices</td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
 
-                        <!-- Company Credit Data -->
-                        <tr class="category-row">
-                            <td colspan="5">Company Credit Data</td>
-                        </tr>
-                        <tr>
-                            <td>Company credit scores</td>
-                            <td><span class="dash">—</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                        </tr>
-                        <tr>
-                            <td>Payment behaviour data</td>
-                            <td><span class="dash">—</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                            <td><span class="check">✓</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+                            <!-- Company Credit Data -->
+                            <tr class="category-row">
+                                <td colspan="5">Company Credit Data</td>
+                            </tr>
+                            <tr>
+                                <td>Company credit scores</td>
+                                <td><span class="dash">—</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>Payment behaviour data</td>
+                                <td><span class="dash">—</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                                <td><span class="check">✓</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="footnote">
                 We focus on director risk. Need company credit scores too? Use us alongside your existing provider.
@@ -587,6 +624,7 @@
                 <div class="pricing-card">
                     <div class="plan-name">Free</div>
                     <div class="plan-price">£0 <span class="plan-price-suffix">forever</span></div>
+                    <div class="plan-terms"></div>
                     <ul class="plan-features">
                         <li>3 director searches/month</li>
                         <li>Full risk reports</li>
@@ -598,7 +636,7 @@
                 <div class="pricing-card featured">
                     <div class="plan-name">Pro</div>
                     <div class="plan-price">£99<span class="plan-price-suffix">/mo</span></div>
-                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">No contract, cancel anytime</p>
+                    <div class="plan-terms">No contract, cancel anytime</div>
                     <ul class="plan-features">
                         <li>Unlimited director searches</li>
                         <li>Full risk analysis</li>
@@ -612,7 +650,7 @@
                 <div class="pricing-card">
                     <div class="plan-name">Corporate</div>
                     <div class="plan-price">£299<span class="plan-price-suffix">/mo</span></div>
-                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">No contract, cancel anytime</p>
+                    <div class="plan-terms">No contract, cancel anytime</div>
                     <ul class="plan-features">
                         <li>Everything in Pro</li>
                         <li>Unlimited watchlist</li>
