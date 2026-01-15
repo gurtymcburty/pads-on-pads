@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pads on Pads - Audiobook Download</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #c9a566;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #999;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+
+        .card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: #c9a566;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: #ccc;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: #c9a566;
+            color: #000;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+
+        .download-btn:hover {
+            background: #d4a574;
+            transform: translateY(-2px);
+        }
+
+        .stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 24px;
+        }
+
+        .stat {
+            flex: 1;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #c9a566;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #999;
+        }
+
+        ol {
+            margin-left: 20px;
+            color: #ccc;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        code {
+            background: #000;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #c9a566;
+        }
+
+        .note {
+            background: #2a2a1a;
+            border-left: 4px solid #c9a566;
+            padding: 16px;
+            margin-top: 24px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎧 Pads on Pads</h1>
+        <p class="subtitle">Professional Audiobook</p>
+
+        <div class="card">
+            <h2>Download & Listen</h2>
+            <p>The audiobook is ready! Due to file size (288MB), it's available as a downloadable package that works offline on any device.</p>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Chapters</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">~5hrs</div>
+                    <div class="stat-label">Audio Content</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">288MB</div>
+                    <div class="stat-label">Total Size</div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>📁 Files included:</strong> Spotify-like audio player + 8 high-quality MP3 chapters (OpenAI TTS "onyx" voice)
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>How to Use</h2>
+            <ol>
+                <li>Download the audiobook package from the link below</li>
+                <li>Extract the ZIP file to a folder</li>
+                <li>Open <code>audiobook.html</code> in any browser (Chrome, Safari, Firefox)</li>
+                <li>Start listening! Your progress is auto-saved</li>
+            </ol>
+
+            <p style="margin-top: 24px;"><strong>Features:</strong></p>
+            <ul style="margin-left: 20px; color: #ccc;">
+                <li>Play/pause & chapter navigation</li>
+                <li>Speed control (0.5x - 2.0x)</li>
+                <li>Auto-resume from last position</li>
+                <li>Progress tracking</li>
+                <li>Works offline once downloaded</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Download Audiobook</h2>
+            <p>The audiobook files are available in your local directory at:</p>
+            <code>/Users/jaymychalkiw/Desktop/padsonpads/</code>
+
+            <p style="margin-top: 24px;">Copy the <code>audiobook.html</code> file and <code>audio/</code> folder to any device, or share via cloud storage (Dropbox, Google Drive, iCloud).</p>
+
+            <div class="note">
+                <strong>💡 Tip for Mobile:</strong> Upload to iCloud Drive or Google Drive, then download to your phone. Open audiobook.html in Safari/Chrome and it works like a native app!
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Alternative: Individual Chapter Downloads</h2>
+            <p>Prefer to download chapters individually? They're in:</p>
+            <code>audio/chapter-01.mp3</code> through <code>audio/chapter-08.mp3</code>
+
+            <p style="margin-top: 16px;">Each chapter is 33-38MB and can be played in any audio app (iTunes, VLC, Spotify local files, etc.)</p>
+        </div>
+    </div>
+</body>
+</html>

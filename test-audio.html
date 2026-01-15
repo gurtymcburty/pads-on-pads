@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Test</title>
+</head>
+<body>
+    <h1>Audio Test</h1>
+
+    <h2>Test 1: Local File</h2>
+    <audio id="local" controls>
+        <source src="audio/chapter-01.mp3" type="audio/mpeg">
+    </audio>
+    <button onclick="document.getElementById('local').play()">Play Local</button>
+
+    <h2>Test 2: GitHub Release</h2>
+    <audio id="remote" controls>
+        <source src="https://github.com/gurtymcburty/pads-on-pads/releases/download/audiobook-v1.0/chapter-01.mp3" type="audio/mpeg">
+    </audio>
+    <button onclick="document.getElementById('remote').play()">Play Remote</button>
+
+    <h2>Debug Info</h2>
+    <div id="debug"></div>
+
+    <script>
+        const local = document.getElementById('local');
+        const remote = document.getElementById('remote');
+        const debug = document.getElementById('debug');
+
+        function log(msg) {
+            debug.innerHTML += msg + '<br>';
+            console.log(msg);
+        }
+
+        local.addEventListener('error', (e) => {
+            log('LOCAL ERROR: ' + JSON.stringify(local.error));
+        });
+
+        local.addEventListener('canplay', () => {
+            log('LOCAL: Can play');
+        });
+
+        remote.addEventListener('error', (e) => {
+            log('REMOTE ERROR: ' + JSON.stringify(remote.error));
+        });
+
+        remote.addEventListener('canplay', () => {
+            log('REMOTE: Can play');
+        });
+
+        remote.addEventListener('loadstart', () => {
+            log('REMOTE: Load started');
+        });
+    </script>
+</body>
+</html>
