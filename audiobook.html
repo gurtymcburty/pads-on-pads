@@ -25,60 +25,72 @@
             background: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            padding: 20px;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         #container {
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
         }
 
         h1 {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             color: var(--accent-color);
         }
 
         .subtitle {
-            color: #999;
+            color: #666;
             font-size: 14px;
-            margin-bottom: 40px;
+            margin-bottom: 32px;
         }
 
         /* Player */
         #player {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 32px;
+            border-radius: 16px;
+            padding: 32px 24px;
+            margin-bottom: 24px;
             border: 1px solid var(--border-color);
         }
 
         #current-chapter {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--accent-color);
+            margin-bottom: 32px;
+            color: var(--text-color);
+            text-align: center;
+            line-height: 1.4;
         }
 
         #progress-container {
-            margin-bottom: 16px;
+            margin-bottom: 24px;
         }
 
         #progress-bar {
             width: 100%;
-            height: 6px;
+            height: 4px;
             background: #333;
-            border-radius: 3px;
+            border-radius: 2px;
             cursor: pointer;
             position: relative;
+            margin-bottom: 8px;
         }
 
         #progress-fill {
             height: 100%;
             background: var(--accent-color);
-            border-radius: 3px;
+            border-radius: 2px;
             width: 0%;
             transition: width 0.1s;
         }
@@ -86,17 +98,16 @@
         #time-display {
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
-            color: #999;
-            margin-top: 8px;
+            font-size: 11px;
+            color: #666;
         }
 
         #controls {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 16px;
-            margin-top: 24px;
+            gap: 24px;
+            margin-bottom: 24px;
         }
 
         button {
@@ -104,110 +115,162 @@
             border: none;
             color: var(--text-color);
             cursor: pointer;
-            padding: 8px;
+            padding: 12px;
             transition: all 0.2s;
-            font-size: 20px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         button:hover {
             color: var(--accent-color);
-            transform: scale(1.1);
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
         }
 
         #play-pause {
-            width: 56px;
-            height: 56px;
+            width: 64px;
+            height: 64px;
             border-radius: 50%;
             background: var(--accent-color);
             color: var(--bg-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
+            font-size: 28px;
+            padding: 0;
         }
 
         #play-pause:hover {
             background: #d4a574;
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         #speed-control {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-top: 16px;
+            justify-content: center;
+            gap: 12px;
         }
 
         #speed-display {
-            font-size: 14px;
-            color: #999;
-            min-width: 45px;
+            font-size: 13px;
+            color: #666;
+            min-width: 50px;
+            text-align: center;
         }
 
         /* Playlist */
+        h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         #playlist {
             list-style: none;
+            flex: 1;
+            overflow-y: auto;
         }
 
         .chapter-item {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 12px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 8px;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 12px;
         }
 
         .chapter-item:hover {
             background: var(--hover-bg);
-            border-color: var(--accent-color);
         }
 
         .chapter-item.active {
-            border-color: var(--accent-color);
             background: var(--hover-bg);
         }
 
-        .chapter-title {
-            font-weight: 500;
-            font-size: 16px;
+        .chapter-item.active .chapter-number {
+            color: var(--accent-color);
+        }
+
+        .chapter-item.active .chapter-title {
+            color: var(--accent-color);
         }
 
         .chapter-number {
-            color: var(--accent-color);
-            font-weight: 700;
-            margin-right: 12px;
+            color: #666;
+            font-weight: 600;
+            font-size: 15px;
+            min-width: 20px;
         }
 
-        .chapter-duration {
-            color: #999;
-            font-size: 14px;
+        .chapter-title {
+            font-weight: 400;
+            font-size: 15px;
+            color: var(--text-color);
+            flex: 1;
         }
 
         .playing-indicator {
             color: var(--accent-color);
-            font-size: 12px;
-            margin-left: 12px;
+            font-size: 18px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         @media (max-width: 768px) {
+            #container {
+                padding: 16px;
+            }
+
             h1 {
                 font-size: 24px;
             }
 
             #player {
-                padding: 20px;
+                padding: 24px 20px;
+            }
+
+            #current-chapter {
+                font-size: 18px;
+            }
+
+            #controls {
+                gap: 20px;
+            }
+
+            button {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            #play-pause {
+                width: 56px;
+                height: 56px;
+                font-size: 24px;
             }
 
             .chapter-item {
-                padding: 12px;
+                padding: 14px 4px;
             }
 
             .chapter-title {
+                font-size: 14px;
+            }
+
+            .chapter-number {
                 font-size: 14px;
             }
         }
@@ -215,12 +278,12 @@
 </head>
 <body>
     <div id="container">
-        <h1>🎧 Pads on Pads</h1>
-        <p class="subtitle">Professional Audiobook</p>
+        <h1>Pads on Pads</h1>
+        <p class="subtitle">Audiobook</p>
 
         <!-- Audio Player -->
         <div id="player">
-            <div id="current-chapter">Select a chapter to begin</div>
+            <div id="current-chapter">Select a chapter</div>
 
             <div id="progress-container">
                 <div id="progress-bar">
@@ -234,9 +297,9 @@
 
             <div id="controls">
                 <button id="prev-chapter" title="Previous Chapter">⏮</button>
-                <button id="rewind" title="Rewind 15s">↶ 15s</button>
+                <button id="rewind" title="Rewind 15s">⏪</button>
                 <button id="play-pause" title="Play/Pause">▶</button>
-                <button id="forward" title="Forward 30s">30s ↷</button>
+                <button id="forward" title="Forward 30s">⏩</button>
                 <button id="next-chapter" title="Next Chapter">⏭</button>
             </div>
 
@@ -248,7 +311,7 @@
         </div>
 
         <!-- Playlist -->
-        <h2 style="margin-bottom: 16px; font-size: 20px;">Chapters</h2>
+        <h2>Chapters</h2>
         <ul id="playlist"></ul>
     </div>
 
@@ -309,11 +372,9 @@
                 if (index === currentChapter) li.classList.add('active');
 
                 li.innerHTML = `
-                    <div>
-                        <span class="chapter-number">${index + 1}</span>
-                        <span class="chapter-title">${chapter.title}</span>
-                        ${index === currentChapter ? '<span class="playing-indicator">●</span>' : ''}
-                    </div>
+                    <span class="chapter-number">${index + 1}</span>
+                    <span class="chapter-title">${chapter.title}</span>
+                    ${index === currentChapter ? '<span class="playing-indicator">♫</span>' : ''}
                 `;
 
                 li.onclick = () => loadChapter(index);
@@ -327,11 +388,22 @@
         function loadChapter(index, startTime = 0) {
             currentChapter = index;
             audio.src = chapters[index].file;
-            currentChapterEl.textContent = `Chapter ${index + 1}: ${chapters[index].title}`;
+            currentChapterEl.textContent = chapters[index].title;
 
             // Update playlist
             document.querySelectorAll('.chapter-item').forEach((item, i) => {
                 item.classList.toggle('active', i === index);
+
+                // Update playing indicator
+                const indicator = item.querySelector('.playing-indicator');
+                if (indicator) indicator.remove();
+
+                if (i === index) {
+                    const newIndicator = document.createElement('span');
+                    newIndicator.className = 'playing-indicator';
+                    newIndicator.textContent = '♫';
+                    item.appendChild(newIndicator);
+                }
             });
 
             // Load and seek
@@ -431,6 +503,38 @@
             } else {
                 playPauseBtn.innerHTML = '▶';
             }
+        });
+
+        // Error handling
+        audio.addEventListener('error', (e) => {
+            console.error('Audio error:', e);
+            console.error('Audio error details:', audio.error);
+            alert('Error loading audio: ' + (audio.error ? audio.error.message : 'Unknown error') + '\n\nTrying alternative method...');
+
+            // Try loading with fetch to bypass potential CORS
+            const currentSrc = audio.src;
+            fetch(currentSrc)
+                .then(response => {
+                    if (!response.ok) throw new Error('HTTP ' + response.status);
+                    return response.blob();
+                })
+                .then(blob => {
+                    const url = URL.createObjectURL(blob);
+                    audio.src = url;
+                    audio.load();
+                })
+                .catch(err => {
+                    console.error('Fetch error:', err);
+                    alert('Failed to load audio: ' + err.message);
+                });
+        });
+
+        audio.addEventListener('canplay', () => {
+            console.log('Audio can play');
+        });
+
+        audio.addEventListener('loadstart', () => {
+            console.log('Audio load started');
         });
 
         progressBar.onclick = (e) => {
