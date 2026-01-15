@@ -71,6 +71,7 @@
             color: var(--text-color);
             text-align: center;
             line-height: 1.4;
+            transition: opacity 0.3s ease;
         }
 
         #progress-container {
@@ -236,92 +237,108 @@
             }
 
             #container {
-                padding: 20px 16px;
+                padding: 16px;
                 max-width: 100%;
             }
 
             h1 {
-                font-size: 26px;
+                font-size: 22px;
                 margin-bottom: 2px;
             }
 
             .subtitle {
-                font-size: 13px;
-                margin-bottom: 24px;
-            }
-
-            #player {
-                padding: 28px 20px;
-                border-radius: 20px;
-                margin-bottom: 32px;
-            }
-
-            #current-chapter {
-                font-size: 17px;
-                margin-bottom: 28px;
-                line-height: 1.5;
-            }
-
-            #progress-container {
-                margin-bottom: 28px;
-            }
-
-            #progress-bar {
-                height: 5px;
-                margin-bottom: 10px;
-            }
-
-            #time-display {
                 font-size: 12px;
-            }
-
-            #controls {
-                gap: 16px;
-                margin-bottom: 28px;
-            }
-
-            button {
-                font-size: 20px;
-                padding: 14px;
-            }
-
-            #play-pause {
-                width: 70px;
-                height: 70px;
-                font-size: 30px;
-            }
-
-            #speed-control {
-                gap: 16px;
-                margin-top: 4px;
-            }
-
-            #speed-display {
-                font-size: 14px;
-                min-width: 55px;
-            }
-
-            h2 {
-                font-size: 15px;
                 margin-bottom: 20px;
             }
 
+            #player {
+                padding: 40px 24px;
+                border-radius: 24px;
+                margin-bottom: 24px;
+            }
+
+            #current-chapter {
+                font-size: 16px;
+                margin-bottom: 40px;
+                line-height: 1.6;
+                min-height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #progress-container {
+                margin-bottom: 32px;
+            }
+
+            #progress-bar {
+                height: 6px;
+                margin-bottom: 12px;
+                border-radius: 3px;
+            }
+
+            #progress-fill {
+                border-radius: 3px;
+            }
+
+            #time-display {
+                font-size: 11px;
+            }
+
+            #controls {
+                gap: 12px;
+                margin-bottom: 32px;
+            }
+
+            button {
+                font-size: 24px;
+                padding: 12px;
+                width: 48px;
+                height: 48px;
+            }
+
+            #play-pause {
+                width: 80px;
+                height: 80px;
+                font-size: 36px;
+            }
+
+            #speed-control {
+                gap: 20px;
+            }
+
+            #speed-control button {
+                font-size: 20px;
+                width: 40px;
+                height: 40px;
+            }
+
+            #speed-display {
+                font-size: 15px;
+                min-width: 60px;
+            }
+
+            h2 {
+                font-size: 13px;
+                margin-bottom: 16px;
+            }
+
             .chapter-item {
-                padding: 18px 8px;
+                padding: 16px 4px;
             }
 
             .chapter-title {
-                font-size: 15px;
-                line-height: 1.4;
+                font-size: 14px;
+                line-height: 1.5;
             }
 
             .chapter-number {
-                font-size: 15px;
-                min-width: 24px;
+                font-size: 14px;
+                min-width: 22px;
             }
 
             .playing-indicator {
-                font-size: 16px;
+                font-size: 15px;
             }
         }
     </style>
@@ -365,18 +382,18 @@
         <ul id="playlist"></ul>
     </div>
 
-    <audio id="audio" preload="metadata"></audio>
+    <audio id="audio" preload="auto" playsinline></audio>
 
     <script>
         const chapters = [
-            { title: "Postflop Mastery: Playing In Position", file: "https://github.com/gurtymcburty/pads-on-pads/releases/download/audiobook-v1.0/chapter-01.mp3" },
-            { title: "PKO Strategy with Alex Theologis", file: "https://github.com/gurtymcburty/pads-on-pads/releases/download/audiobook-v1.0/chapter-02.mp3" },
-            { title: "ICM and Final Table Domination", file: "https://github.com/gurtymcburty/pads-on-pads/releases/download/audiobook-v1.0/chapter-03.mp3" },
-            { title: "Preflop Adaptations", file: "https://github.com/gurtymcburty/pads-on-pads/releases/download/audiobook-v1.0/chapter-04.mp3" },
-            { title: "Live Play Sessions", file: "https://github.com/gurtymcburty/pads-on-pads/releases/download/audiobook-v1.0/chapter-05.mp3" },
-            { title: "Guest Expert Reviews", file: "https://github.com/gurtymcburty/pads-on-pads/releases/download/audiobook-v1.0/chapter-06.mp3" },
-            { title: "Heads Up Play with Kevin Rabichow", file: "https://github.com/gurtymcburty/pads-on-pads/releases/download/audiobook-v1.0/chapter-07.mp3" },
-            { title: "Off the Tables: Tools & Mindset", file: "https://github.com/gurtymcburty/pads-on-pads/releases/download/audiobook-v1.0/chapter-08.mp3" }
+            { title: "Postflop Mastery: Playing In Position", file: "audio/chapter-01.mp3" },
+            { title: "PKO Strategy with Alex Theologis", file: "audio/chapter-02.mp3" },
+            { title: "ICM and Final Table Domination", file: "audio/chapter-03.mp3" },
+            { title: "Preflop Adaptations", file: "audio/chapter-04.mp3" },
+            { title: "Live Play Sessions", file: "audio/chapter-05.mp3" },
+            { title: "Guest Expert Reviews", file: "audio/chapter-06.mp3" },
+            { title: "Heads Up Play with Kevin Rabichow", file: "audio/chapter-07.mp3" },
+            { title: "Off the Tables: Tools & Mindset", file: "audio/chapter-08.mp3" }
         ];
 
         const audio = document.getElementById('audio');
@@ -469,8 +486,25 @@
 
         function togglePlayPause() {
             if (audio.paused) {
-                audio.play();
-                playPauseBtn.innerHTML = '⏸';
+                // iOS Safari workaround - ensure audio is loaded
+                if (audio.readyState < 2) {
+                    audio.load();
+                }
+
+                const playPromise = audio.play();
+
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            playPauseBtn.innerHTML = '⏸';
+                        })
+                        .catch(error => {
+                            console.error('Play failed:', error);
+                            alert('Unable to play audio. Please check:\n1. Audio files are in the same folder as this HTML file\n2. The "audio" folder contains all MP3 files\n3. You have internet connection (if files are remote)');
+                        });
+                } else {
+                    playPauseBtn.innerHTML = '⏸';
+                }
             } else {
                 audio.pause();
                 playPauseBtn.innerHTML = '▶';
@@ -559,32 +593,41 @@
         audio.addEventListener('error', (e) => {
             console.error('Audio error:', e);
             console.error('Audio error details:', audio.error);
-            alert('Error loading audio: ' + (audio.error ? audio.error.message : 'Unknown error') + '\n\nTrying alternative method...');
+            currentChapterEl.style.opacity = '1';
 
-            // Try loading with fetch to bypass potential CORS
-            const currentSrc = audio.src;
-            fetch(currentSrc)
-                .then(response => {
-                    if (!response.ok) throw new Error('HTTP ' + response.status);
-                    return response.blob();
-                })
-                .then(blob => {
-                    const url = URL.createObjectURL(blob);
-                    audio.src = url;
-                    audio.load();
-                })
-                .catch(err => {
-                    console.error('Fetch error:', err);
-                    alert('Failed to load audio: ' + err.message);
-                });
-        });
-
-        audio.addEventListener('canplay', () => {
-            console.log('Audio can play');
+            let errorMsg = 'Unable to play audio.\n\n';
+            if (audio.error) {
+                switch(audio.error.code) {
+                    case 1:
+                        errorMsg += 'Loading was aborted.';
+                        break;
+                    case 2:
+                        errorMsg += 'Network error occurred.';
+                        break;
+                    case 3:
+                        errorMsg += 'Audio format not supported.';
+                        break;
+                    case 4:
+                        errorMsg += 'Audio file not found.\n\nMake sure:\n- The "audio" folder is in the same location as this HTML file\n- All MP3 files are in the audio folder';
+                        break;
+                }
+            }
+            alert(errorMsg);
         });
 
         audio.addEventListener('loadstart', () => {
             console.log('Audio load started');
+            currentChapterEl.style.opacity = '0.5';
+        });
+
+        audio.addEventListener('canplay', () => {
+            console.log('Audio can play');
+            currentChapterEl.style.opacity = '1';
+        });
+
+        audio.addEventListener('loadeddata', () => {
+            console.log('Audio loaded');
+            currentChapterEl.style.opacity = '1';
         });
 
         progressBar.onclick = (e) => {
